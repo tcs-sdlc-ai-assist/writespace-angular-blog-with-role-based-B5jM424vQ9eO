@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a routerLink="/" class="navbar-brand">
+      <span class="brand-icon">✍</span>
+      <span class="brand-text">WriteSpace</span>
+    </a>
+
+    <div class="navbar-links">
+      @if (isAuthenticated) {
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
+        <a routerLink="/blogs" routerLinkActive="active" class="nav-link">Blogs</a>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active" class="nav-link nav-link--login">Login</a>
+        <a routerLink="/register" routerLinkActive="active" class="nav-link nav-link--register">Register</a>
+      }
+    </div>
+  </div>
+</nav>

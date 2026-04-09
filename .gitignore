@@ -1,0 +1,42 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.development
+.env.production
+.angular/
+.DS_Store
+coverage/
+tmp/
+out-tsc/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# System files
+Thumbs.db
+
+# Angular cache
+.sass-cache/
+
+# Compiled output
+bazel-out/
+
+# Dependencies
+package-lock.json
+yarn.lock
+
+# Profiling
+chrome-profiler-events*.json
+
+# Misc
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

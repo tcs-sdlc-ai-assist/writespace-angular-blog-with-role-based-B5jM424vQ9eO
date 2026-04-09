@@ -1,0 +1,20 @@
+<article class="blog-card" [class.blog-card--owner]="isOwner">
+  <div class="blog-card__accent-border"></div>
+  <div class="blog-card__content">
+    <h2 class="blog-card__title">{{ post.title }}</h2>
+    <p class="blog-card__excerpt">{{ post.content | slice:0:150 }}@if (post.content.length > 150) {<span>...</span>}</p>
+    <div class="blog-card__meta">
+      <div class="blog-card__author">
+        <app-avatar [name]="post.authorName" [size]="32"></app-avatar>
+        <span class="blog-card__author-name">{{ post.authorName }}</span>
+      </div>
+      <time class="blog-card__date" [attr.datetime]="post.createdAt">{{ post.createdAt | date:'mediumDate' }}</time>
+    </div>
+    @if (isOwner) {
+      <div class="blog-card__actions">
+        <button class="blog-card__btn blog-card__btn--edit" type="button" (click)="edit.emit(post)">Edit</button>
+        <button class="blog-card__btn blog-card__btn--delete" type="button" (click)="delete.emit(post)">Delete</button>
+      </div>
+    }
+  </div>
+</article>

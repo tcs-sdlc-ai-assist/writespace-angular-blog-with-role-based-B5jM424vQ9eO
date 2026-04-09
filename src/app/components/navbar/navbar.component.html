@@ -1,0 +1,89 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/dashboard" class="navbar-logo">
+      <span class="logo-text">WriteSpace</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-label="Toggle navigation"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <div class="navbar-collapse" [class.open]="isMenuOpen">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+          Dashboard
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/posts" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+          Posts
+        </a>
+      </li>
+
+      @if (userRole === 'admin' || userRole === 'editor') {
+        <li class="nav-item">
+          <a routerLink="/editor" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+            Editor
+          </a>
+        </li>
+      }
+
+      @if (userRole === 'admin') {
+        <li class="nav-item">
+          <a routerLink="/admin/users" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+            Users
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/settings" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+            Settings
+          </a>
+        </li>
+      }
+
+      @if (userRole === 'editor' || userRole === 'admin') {
+        <li class="nav-item">
+          <a routerLink="/reviews" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+            Reviews
+          </a>
+        </li>
+      }
+    </ul>
+
+    <div class="navbar-user">
+      <div class="user-dropdown" [class.open]="isDropdownOpen">
+        <button class="user-dropdown-toggle" type="button" (click)="toggleDropdown()" aria-label="User menu">
+          <app-avatar [name]="displayName" [size]="32"></app-avatar>
+          <span class="user-display-name">{{ displayName }}</span>
+          <span class="dropdown-caret" [class.rotated]="isDropdownOpen">&#9662;</span>
+        </button>
+
+        @if (isDropdownOpen) {
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <a routerLink="/profile" class="dropdown-link" (click)="closeDropdown()">
+                Profile
+              </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li class="dropdown-item">
+              <button class="dropdown-link logout-btn" type="button" (click)="onLogout()">
+                Logout
+              </button>
+            </li>
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

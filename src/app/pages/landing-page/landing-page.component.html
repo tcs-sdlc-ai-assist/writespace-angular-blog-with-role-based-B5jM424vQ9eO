@@ -1,0 +1,133 @@
+<div class="landing-page">
+  <!-- Public Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a routerLink="/" class="navbar-brand">
+        <span class="brand-icon">✍️</span>
+        <span class="brand-text">WriteSpace</span>
+      </a>
+      <div class="navbar-links">
+        <a routerLink="/login" class="nav-link">Log In</a>
+        <a routerLink="/register" class="nav-link nav-link-cta">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Your Ideas Deserve a Space</h1>
+      <p class="hero-subtitle">
+        WriteSpace is the modern blogging platform where writers share stories,
+        ideas, and knowledge with the world. Start writing today.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/register" class="btn btn-primary">Start Writing — It's Free</a>
+        <a routerLink="/explore" class="btn btn-secondary">Explore Posts</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="features-container">
+      <h2 class="section-title">Why WriteSpace?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3 class="feature-title">Distraction-Free Editor</h3>
+          <p class="feature-description">
+            A clean, intuitive writing experience that lets you focus on what matters most — your words.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3 class="feature-title">Reach a Global Audience</h3>
+          <p class="feature-description">
+            Publish your posts and connect with readers from around the world. Your voice, amplified.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Insightful Analytics</h3>
+          <p class="feature-description">
+            Track your readership, engagement, and growth with built-in analytics on every post you publish.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Posts Section -->
+  <section class="latest-posts">
+    <div class="latest-posts-container">
+      <h2 class="section-title">Latest from the Community</h2>
+      @if (isLoading) {
+        <div class="posts-loading">
+          <p>Loading latest posts...</p>
+        </div>
+      }
+      @if (!isLoading && latestPosts.length === 0) {
+        <div class="posts-empty">
+          <p>No posts yet. Be the first to <a routerLink="/register">write something</a>!</p>
+        </div>
+      }
+      @if (!isLoading && latestPosts.length > 0) {
+        <div class="posts-grid">
+          @for (post of latestPosts; track post.id) {
+            <div class="post-card">
+              @if (post.coverImage) {
+                <div class="post-card-image">
+                  <img [src]="post.coverImage" [alt]="post.title" />
+                </div>
+              }
+              <div class="post-card-body">
+                <h3 class="post-card-title">
+                  <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
+                </h3>
+                <p class="post-card-excerpt">{{ post.excerpt }}</p>
+                <div class="post-card-meta">
+                  <span class="post-card-author">{{ post.authorName }}</span>
+                  <span class="post-card-date">{{ post.createdAt | date: 'mediumDate' }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="posts-view-all">
+          <a routerLink="/explore" class="btn btn-outline">View All Posts</a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-icon">✍️</span>
+          <span class="brand-text">WriteSpace</span>
+          <p class="footer-tagline">A home for your words.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-link-group">
+            <h4 class="footer-link-heading">Platform</h4>
+            <a routerLink="/explore" class="footer-link">Explore</a>
+            <a routerLink="/register" class="footer-link">Get Started</a>
+            <a routerLink="/login" class="footer-link">Log In</a>
+          </div>
+          <div class="footer-link-group">
+            <h4 class="footer-link-heading">Company</h4>
+            <a routerLink="/about" class="footer-link">About</a>
+            <a routerLink="/privacy" class="footer-link">Privacy Policy</a>
+            <a routerLink="/terms" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; {{ currentYear }} WriteSpace. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<div class="read-blog-container">
+  @if (errorMessage) {
+    <div class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+
+  @if (post) {
+    <article class="blog-post">
+      <h1 class="post-title">{{ post.title }}</h1>
+
+      <div class="post-meta">
+        <div class="author-info">
+          <img
+            class="author-avatar"
+            [src]="post.author?.avatar || 'assets/default-avatar.png'"
+            [alt]="post.author?.name || 'Author'"
+          />
+          <span class="author-name">{{ post.author?.name || 'Unknown Author' }}</span>
+        </div>
+        <span class="post-date">{{ post.createdAt | date: 'MMMM d, yyyy' }}</span>
+      </div>
+
+      <div class="post-content" [innerHTML]="post.content"></div>
+
+      @if (isOwner) {
+        <div class="post-actions">
+          <button class="btn btn-edit" (click)="onEdit()">Edit</button>
+          <button class="btn btn-delete" (click)="onDelete()">Delete</button>
+        </div>
+      }
+    </article>
+  }
+</div>

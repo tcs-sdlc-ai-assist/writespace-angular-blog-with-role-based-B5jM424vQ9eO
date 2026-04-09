@@ -1,0 +1,23 @@
+<div class="user-row">
+  <div class="user-info">
+    <app-avatar [name]="user.displayName" [size]="40"></app-avatar>
+    <div class="user-details">
+      <span class="display-name">{{ user.displayName }}</span>
+      <span class="username">@{{ user.username }}</span>
+    </div>
+  </div>
+  <div class="user-meta">
+    <span class="role-badge" [ngClass]="'role-' + user.role">{{ user.role | titlecase }}</span>
+    <span class="creation-date">{{ user.createdAt | date:'mediumDate' }}</span>
+  </div>
+  <div class="user-actions">
+    <button
+      class="delete-btn"
+      (click)="onDelete()"
+      [disabled]="isAdmin || isSelf"
+      [attr.aria-label]="'Delete user ' + user.displayName"
+    >
+      Delete
+    </button>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+:host {
+  display: inline-block;
+}
+
+.avatar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.avatar-chip--admin {
+  background-color: #8b5cf6;
+  color: #ffffff;
+}
+
+.avatar-chip--user {
+  background-color: #6366f1;
+  color: #ffffff;
+}
+
+.avatar-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.avatar-display-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

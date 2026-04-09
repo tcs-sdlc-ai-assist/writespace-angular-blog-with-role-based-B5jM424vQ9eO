@@ -1,0 +1,134 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/">WriteSpace</a>
+  </div>
+  <div class="navbar-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/blog">Blog</a>
+    <a routerLink="/admin" class="active">Dashboard</a>
+    <button class="btn btn-outline" (click)="onLogout()">Logout</button>
+  </div>
+</nav>
+
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+    <p class="dashboard-subtitle">Manage your blog content and monitor site activity.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📝</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalPosts }}</span>
+        <span class="stat-label">Total Posts</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📄</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ publishedPosts }}</span>
+        <span class="stat-label">Published</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">✏️</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ draftPosts }}</span>
+        <span class="stat-label">Drafts</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalViews }}</span>
+        <span class="stat-label">Total Views</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="actions-row">
+      <button class="btn btn-primary" (click)="onCreatePost()">
+        + New Post
+      </button>
+      <button class="btn btn-secondary" (click)="onManageCategories()">
+        Manage Categories
+      </button>
+      <button class="btn btn-secondary" (click)="onViewAnalytics()">
+        View Analytics
+      </button>
+      <button class="btn btn-secondary" (click)="onManageUsers()">
+        Manage Users
+      </button>
+    </div>
+  </div>
+
+  <div class="recent-posts-section">
+    <div class="section-header">
+      <h2 class="section-title">Recent Posts</h2>
+      <a routerLink="/admin/posts" class="view-all-link">View All →</a>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-spinner">
+        <p>Loading posts...</p>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div class="error-message">
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-outline" (click)="loadRecentPosts()">Retry</button>
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage && recentPosts.length === 0) {
+      <div class="empty-state">
+        <p>No posts yet. Create your first post to get started!</p>
+        <button class="btn btn-primary" (click)="onCreatePost()">+ Create Post</button>
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage && recentPosts.length > 0) {
+      <div class="posts-list">
+        @for (post of recentPosts; track post.id) {
+          <div class="blog-card">
+            <div class="blog-card-content">
+              <div class="blog-card-header">
+                <h3 class="blog-card-title">{{ post.title }}</h3>
+                <span
+                  class="status-badge"
+                  [class.status-published]="post.status === 'published'"
+                  [class.status-draft]="post.status === 'draft'"
+                >
+                  {{ post.status | titlecase }}
+                </span>
+              </div>
+              <p class="blog-card-excerpt">{{ post.excerpt }}</p>
+              <div class="blog-card-meta">
+                <span class="meta-author">By {{ post.author }}</span>
+                <span class="meta-date">{{ post.createdAt | date: 'mediumDate' }}</span>
+                @if (post.views !== undefined) {
+                  <span class="meta-views">{{ post.views }} views</span>
+                }
+              </div>
+            </div>
+            <div class="blog-card-actions">
+              <button class="btn btn-sm btn-outline" (click)="onEditPost(post.id)">
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="onDeletePost(post.id)">
+                Delete
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

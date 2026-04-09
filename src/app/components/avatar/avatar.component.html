@@ -1,0 +1,6 @@
+<div class="avatar-chip" [ngClass]="{'avatar-chip--admin': role === 'admin', 'avatar-chip--user': role === 'user'}">
+  <span class="avatar-chip__emoji">{{ role === 'admin' ? '🛡️' : '👤' }}</span>
+  @if (displayName) {
+    <span class="avatar-chip__name">{{ displayName }}</span>
+  }
+</div>

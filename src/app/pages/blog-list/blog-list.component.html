@@ -1,0 +1,35 @@
+<section class="blog-list-page">
+  <app-navbar></app-navbar>
+
+  <div class="blog-list-container">
+    <h1 class="page-title">Blog Posts</h1>
+
+    @if (isLoading) {
+      <div class="loading-state">
+        <p>Loading posts...</p>
+      </div>
+    }
+
+    @if (!isLoading && errorMessage) {
+      <div class="error-state">
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-retry" (click)="loadPosts()">Try Again</button>
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage && posts.length > 0) {
+      <div class="blog-grid">
+        @for (post of posts; track post.id) {
+          <app-blog-card [post]="post" (cardClick)="onCardClick($event)"></app-blog-card>
+        }
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage && posts.length === 0) {
+      <div class="empty-state">
+        <p class="empty-state-message">No blog posts yet. Be the first to share your thoughts!</p>
+        <button class="btn btn-primary" routerLink="/write">Write a Post</button>
+      </div>
+    }
+  </div>
+</section>
